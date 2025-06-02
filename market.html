@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>الأدوات المستعملة - Hi Syria</title>
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background-color: #1c1c1c;
+      color: #eee;
+      margin: 0;
+      padding: 20px;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffdd57;
+      margin-bottom: 30px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background-color: #2f2f2f;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-7px);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      border-radius: 10px;
+      background-color: #222;
+      margin-bottom: 15px;
+    }
+
+    .product-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #ffdd57;
+      margin-bottom: 8px;
+    }
+
+    .product-price {
+      font-size: 16px;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .product-desc {
+      font-size: 14px;
+      color: #ccc;
+      flex-grow: 1;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .action-buttons button {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      color: white;
+    }
+
+    .edit-btn {
+      background-color: #2196F3;
+    }
+
+    .delete-btn {
+      background-color: #f44336;
+    }
+
+    footer {
+      text-align: center;
+      color: #999;
+      margin-top: 40px;
+      font-size: 14px;
+      padding-bottom: 20px;
+    }
+
+    /* نافذة التعديل */
+    .modal {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      display: none;
+    }
+
+    .modal-content {
+      background-color: #2b2b2b;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .modal-content input,
+    .modal-content textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: none;
+      border-radius: 6px;
+      background: #444;
+      color: #fff;
+    }
+
+    .modal-content button {
+      width: 100%;
+      padding: 10px;
+      background: #ff9800;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>الأدوات المستعملة في منطقتك</h1>
+
+  <div class="products-grid" id="productsGrid"></div>
+
+  <footer>جميع الحقوق محفوظة © 2025 - Hi Syria</footer>
+
+  <!-- نافذة التعديل -->
+  <div class="modal" id="editModal">
+    <div class="modal-content">
+      <input type="text" id="editName" placeholder="اسم المنتج">
+      <input type="number" id="editPrice" placeholder="السعر">
+      <textarea id="editDesc" rows="3" placeholder="الوصف"></textarea>
+      <button onclick="saveEdit()">حفظ التعديلات</button>
+    </div>
+  </div>
+
+  <script>
+    let products = JSON.parse(localStorage.getItem('usedProducts')) || [];
+    let currentEditIndex = null;
+
+    function loadProducts() {
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = '';
+
+      if (products.length === 0) {
+        grid.innerHTML = '<p style="text-align:center; color:#999;">لا يوجد منتجات حالياً.</p>';
+        return;
+      }
+
+      products.forEach((product, index) => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <img src="${product.image}" class="product-image" />
+          <div class="product-name">${product.name}</div>
+          <div class="product-price">${product.price} ل.س</div>
+          <div class="product-desc">${product.desc}</div>
+          <div class="action-buttons">
+            <button class="edit-btn" onclick="editProduct(${index})">تعديل</button>
+            <button class="delete-btn" onclick="deleteProduct(${index})">حذف</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function deleteProduct(index) {
+      if (confirm('هل أنت متأكد من حذف هذا المنتج؟')) {
+        products.splice(index, 1);
+        localStorage.setItem('usedProducts', JSON.stringify(products));
+        loadProducts();
+      }
+    }
+
+    function editProduct(index) {
+      currentEditIndex = index;
+      document.getElementById('editName').value = products[index].name;
+      document.getElementById('editPrice').value = products[index].price;
+      document.getElementById('editDesc').value = products[index].desc;
+      document.getElementById('editModal').style.display = 'flex';
+    }
+
+    function saveEdit() {
+      let name = document.getElementById('editName').value;
+      let price = document.getElementById('editPrice').value;
+      let desc = document.getElementById('editDesc').value;
+
+      products[currentEditIndex].name = name;
+      products[currentEditIndex].price = price;
+      products[currentEditIndex].desc = desc;
+
+      localStorage.setItem('usedProducts', JSON.stringify(products));
+      document.getElementById('editModal').style.display = 'none';
+      loadProducts();
+    }
+
+    window.onload = loadProducts;
+
+    // إغلاق النافذة عند الضغط خارجها
+    document.getElementById('editModal').addEventListener('click', (e) => {
+      if (e.target.id === 'editModal') {
+        e.target.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>قسم الألبسة - Hi Syria</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: background 0.4s, color 0.4s;
+      background: url('https://www.transparenttextures.com/patterns/black-linen.png'), #1a1a1a;
+      color: #e0e0e0;
+    }
+
+    body.dark {
+      background-color: #121212;
+      background-image: none;
+      color: #eee;
+    }
+
+    header {
+      background-color: #111;
+      color: #ffdd57;
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    }
+
+    .shops-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .shop-card {
+      background: #2a2a2a;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+      padding: 20px;
+      transition: transform 0.3s, background 0.4s;
+    }
+
+    body.dark .shop-card {
+      background: #1f1f1f;
+      color: #eee;
+    }
+
+    .shop-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .shop-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffdd57;
+      margin: 0 0 10px;
+    }
+
+    .shop-desc {
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    .shop-button {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 15px;
+      background-color: #ffdd57;
+      color: #000;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .shop-button:hover {
+      background-color: #f0c500;
+    }
+
+    footer {
+      background: #111;
+      color: #ccc;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <header>محلات الألبسة في منطقتك</header>
+
+  <div class="shops-container">
+    <!-- 10 بطاقات -->
+    <div class="shop-card"><h3 class="shop-title">أزياء الشرق</h3><p class="shop-desc">أحدث صيحات الموضة الرجالية والنسائية.</p><a href="#" class="shop-button">عرض المنتجات</a></div>
+    <div class="shop-card"><h3 class="shop-title">أناقة الشام</h3><p class="shop-desc">ملابس شبابية وعروض يومية.</p><a href="#" class="shop-button">عرض المنتجات</a></div>
+    <div class="shop-card"><h3 class="shop-title">ملبوسات الوليد</h3><p class="shop-desc">كل ما يلزم الأطفال من عمر يوم.</p><a href="#" class="shop-button">عرض المنتجات</a></div>
+    <div class="shop-card"><h3 class="shop-title">ستايل بلس</h3><p class="shop-desc">ملابس ماركات رجالية أصلية.</p><a href="#" class="shop-button">عرض المنتجات</a></div>
+    <div class="shop-card"><h3 class="shop-title">موضة اليوم</h3><p class="shop-desc">جديد الموضة النسائية يومياً.</p><a href="#" class="shop-button">عرض المنتجات</a></div>
+    <div class="shop-card"><h3 class="shop-title">كاجوال ستور</h3><p class="shop-desc">كاجوال للجميع - أفضل الأسعار.</p><a href="#" class="shop-button">عرض المنتجات</a></div>
+    <div class="shop-card"><h3 class="shop-title">لمسة أناقة</h3><p class="shop-desc">عبايات وفساتين بأحدث التصاميم.</p><a href="#" class="shop-button">عرض المنتجات</a></div>
+    <div class="shop-card"><h3 class="shop-title">تجهيزات العروس</h3><p class="shop-desc">كل ما يلزم العروس من ملابس.</p><a href="#" class="shop-button">عرض المنتجات</a></div>
+    <div class="shop-card"><h3 class="shop-title">كلاسيك واي</h3><p class="shop-desc">بدلات رسمية رجالية وولادية.</p><a href="#" class="shop-button">عرض المنتجات</a></div>
+    <div class="shop-card"><h3 class="shop-title">فاشن ليدي</h3><p class="shop-desc">أزياء نسائية وموديلات عالمية.</p><a href="#" class="shop-button">عرض المنتجات</a></div>
+  </div>
+
+  <footer>
+    جميع الحقوق محفوظة © 2025 - Hi Syria
+  </footer>
+
+</body>
+</html>
